@@ -1,11 +1,11 @@
 import { useRef } from 'react'
 import { useGlobalState } from './state'
 
-export function TagsList({ tags }) {
+export function TagsList({ tags, onClose }) {
   return (
     <div>
       {tags.map((tag) => (
-        <Tag key={tag.title}>{tag.title}</Tag>
+        <Tag key={tag.title} onClose={() => onClose(tag)}>{tag.title}</Tag>
       ))}
     </div>
   )

@@ -1,6 +1,7 @@
 export const CREATE_GROUP = 'CREATE_GROUP'
 export const CREATE_CONTROLLER = 'CREATE_CONTROLLER'
 export const CREATE_TAG = 'CREATE_TAG'
+export const REMOVE_TAG = 'REMOVE_TAG'
 export const SELECT_GROUP = 'SELECT_GROUP'
 
 export const createGroup = (id, title, parentId) => ({
@@ -22,6 +23,12 @@ export const createTag = (title, controllerId, groupId) => ({
   title,
   controller_id: controllerId,
   group_id: groupId,
+})
+
+export const removeTagFromController = (title, controllerId) => ({
+  type: 'REMOVE_TAG',
+  controller_id: controllerId,
+  title,
 })
 
 export const selectGroup = (groupId) => ({

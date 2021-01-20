@@ -1,6 +1,6 @@
 import { NewTagForm, SuggestedControllerTags, TagsList } from './TagsList'
 import { useAvailableTagTitles } from './hooks/useAvailableTagTitles'
-import { createTag } from './state/actions'
+import { createTag, removeTagFromController } from './state/actions'
 import { useGlobalState } from './state'
 
 export default function ControllersList({ controllers }) {
@@ -30,10 +30,14 @@ export function ControllerItem({ controller, availableTagTitles }) {
     return controller.tags.find((t) => t.title === tagTitle)
   }
 
+  const removeTag = (tag) => {
+    dispatch(removeTagFromController(tag.title, controller.id))
+  }
+
   return (
     <div key={controller.id}>
       <h4>{controller.title}</h4>
-      <TagsList tags={controller.tags} />
+      <TagsList tags={controller.tags} onClose={removeTag} />
       <SuggestedControllerTags
         onSelect={assignTagWithTitleToCtrl}
         tags={controller.tags}

@@ -3,6 +3,7 @@ import {
   SELECT_GROUP,
   CREATE_CONTROLLER,
   CREATE_TAG,
+  REMOVE_TAG,
 } from './actions'
 
 export function reducer(state, action) {
@@ -74,6 +75,22 @@ export function reducer(state, action) {
               group_id,
             },
           ],
+        },
+      },
+    }
+  }
+
+  if (action.type === REMOVE_TAG) {
+    const { title, controller_id } = action
+    const targetCtrl = state.controllers[controller_id]
+
+    return {
+      ...state,
+      controllers: {
+        ...state.controllers,
+        [controller_id]: {
+          ...targetCtrl,
+          tags: targetCtrl.tags.filter((tag) => tag.title !== title),
         },
       },
     }
