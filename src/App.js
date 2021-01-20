@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useGlobalState } from './state'
+import ControllersList from './ControllersList'
+import GroupsList from './GroupsList'
+import ControllerForm from './ControllerForm'
 
 function App() {
+  const [{ groups, selectedGroupId }] = useGlobalState()
+  const selectedGroup = groups[selectedGroupId]
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Selected group: {selectedGroup.title}</h1>
+      <GroupsList />
+
+      <h2>Controllers</h2>
+      <ControllersList />
+      <ControllerForm />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
