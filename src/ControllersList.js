@@ -1,5 +1,7 @@
 import { NewTagForm, SuggestedControllerTags, TagsList } from './TagsList'
 import { useAvailableTagTitles } from './hooks/useAvailableTagTitles'
+import { createTag } from './state/actions'
+import { useGlobalState } from './state'
 
 export default function ControllersList({ controllers }) {
   const availableTagTitles = useAvailableTagTitles(controllers)
@@ -18,17 +20,26 @@ export default function ControllersList({ controllers }) {
 }
 
 export function ControllerItem({ controller, availableTagTitles }) {
-  const assignTagWithTitleToCtrl = (controllerId, title) => {}
+  const [{ selectedGroupId }, dispatch] = useGlobalState()
+
+  const assignTagWithTitleToCtrl = (tagTitle) => {
+    dispatch(createTag(tagTitle, controller.id, selectedGroupId))
+  }
+
+  const canCreate = (tagTitle) => {
+    return controller.tags.find((t) => t.title === tagTitle)
+  }
 
   return (
     <div key={controller.id}>
       <h4>{controller.title}</h4>
       <TagsList tags={controller.tags} />
       <SuggestedControllerTags
+        onSelect={assignTagWithTitleToCtrl}
         tags={controller.tags}
         availableTagTitles={availableTagTitles}
       />
-      <NewTagForm controllerId={controller.id} tags={controller.tags} />
+      <NewTagForm canCreate={canCreate} onCreate={assignTagWithTitleToCtrl} />
     </div>
   )
 }

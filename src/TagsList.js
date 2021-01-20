@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import { createTag } from './state/actions'
 import { useGlobalState } from './state'
 
 export function TagsList({ tags }) {
@@ -14,14 +13,14 @@ export function TagsList({ tags }) {
 
 export function Tag({ children, onClick, onClose }) {
   return (
-    <span>
-      {onClick && <span onClick={() => onClick()}>{children}</span>}
+    <span style={{ padding: '5px', background: 'red' }}>
+      <span onClick={() => onClick && onClick()}>{children}</span>
       {onClose && <span onClick={() => onClose()}>x</span>}
     </span>
   )
 }
 
-export function NewTagForm({ tags, controllerId }) {
+export function NewTagForm({ canCreate, onCreate }) {
   const [{ selectedGroupId }, dispatch] = useGlobalState()
   const $input = useRef()
 
@@ -29,12 +28,12 @@ export function NewTagForm({ tags, controllerId }) {
     e.preventDefault()
     const tagTitle = $input.current.value
 
-    if (tags.find((t) => t.title === tagTitle)) {
+    if (canCreate(tagTitle)) {
       alert('Sorry such tag already exists')
       return
     }
 
-    dispatch(createTag(tagTitle, controllerId, selectedGroupId))
+    onCreate(tagTitle)
   }
 
   return (
@@ -48,10 +47,17 @@ export function NewTagForm({ tags, controllerId }) {
   )
 }
 
-export function SuggestedControllerTags({ tags, availableTagTitles }) {
+export function SuggestedControllerTags({ onSelect, tags, availableTagTitles }) {
   const assignedTitles = tags.map((t) => t.title)
 
-  return availableTagTitles
-    .filter((title) => !assignedTitles.find((t) => t === title))
-    .join(', ')
+  return (
+    <div>
+      <h5>Suggested tags:</h5>
+      {availableTagTitles
+        .filter((title) => !assignedTitles.find((t) => t === title))
+        .map((title) => (
+          <Tag key={title} onClick={() => onSelect(title)}>{title}</Tag>
+        ))}
+    </div>
+  )
 }
