@@ -1,7 +1,7 @@
 import { NewTagForm, SuggestedControllerTags, TagsList } from './TagsList'
-import { useAvailableTagTitles } from './hooks/useAvailableTagTitles'
-import { createTag, removeTagFromController } from './state/actions'
-import { useGlobalState } from './state'
+import { useAvailableTagTitles } from '../hooks/useAvailableTagTitles'
+import { createTag, removeTagFromController } from '../state/actions'
+import { useGlobalState } from '../state'
 
 export default function ControllersList({ controllers }) {
   const availableTagTitles = useAvailableTagTitles(controllers)

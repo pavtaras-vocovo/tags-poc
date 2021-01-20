@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { useGlobalState } from './state'
+import { useGlobalState } from '../state'
 
 export function TagsList({ tags, onClose }) {
   return (

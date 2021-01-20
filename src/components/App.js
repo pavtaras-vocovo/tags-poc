@@ -1,8 +1,8 @@
-import { useGlobalState } from './state'
+import { useGlobalState } from '../state'
 import ControllersList from './ControllersList'
 import GroupsList from './GroupsList'
 import ControllerForm from './ControllerForm'
-import { useVisibleControllers } from './hooks/useVisibleControllers'
+import { useVisibleControllers } from '../hooks/useVisibleControllers'
 
 function App() {
   const [{ groups, selectedGroupId }] = useGlobalState()

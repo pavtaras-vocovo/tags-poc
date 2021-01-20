@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
-import { useGlobalState } from './state'
-import { createGroup, selectGroup } from './state/actions'
-import { randomId } from './utils'
+import { useGlobalState } from '../state'
+import { createGroup, selectGroup } from '../state/actions'
+import { randomId } from '../utils'
 
 export default function GroupsList() {
   const [{ groups }] = useGlobalState()

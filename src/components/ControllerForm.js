@@ -1,7 +1,7 @@
 import { useRef } from 'react'
-import { createController } from './state/actions'
-import { randomId } from './utils'
-import { useGlobalState } from './state'
+import { createController } from '../state/actions'
+import { randomId } from '../utils'
+import { useGlobalState } from '../state'
 
 export default function ControllerForm() {
   const [{ selectedGroupId }, dispatch] = useGlobalState()
