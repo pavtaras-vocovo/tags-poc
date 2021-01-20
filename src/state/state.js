@@ -12,7 +12,7 @@ export const initState = {
   controllers: {
     controller_id: {
       id: 'controller_id',
-      title: 'Controller title',
+      title: 'Controller 1',
       group_id: 'group_id',
       tags: [
         {

@@ -1,4 +1,9 @@
-import { CREATE_GROUP, SELECT_GROUP, CREATE_CONTROLLER } from './actions'
+import {
+  CREATE_GROUP,
+  SELECT_GROUP,
+  CREATE_CONTROLLER,
+  CREATE_TAG,
+} from './actions'
 
 export function reducer(state, action) {
   if (action.type === CREATE_GROUP) {
@@ -39,15 +44,38 @@ export function reducer(state, action) {
           title: action.title,
           group_id: action.group_id,
           tags: [],
-        }
+        },
       },
       groups: {
         ...groups,
         [parentGroup.id]: {
           ...parentGroup,
-          controllers: [...parentGroup.controllers, action.id]
-        }
-      }
+          controllers: [...parentGroup.controllers, action.id],
+        },
+      },
+    }
+  }
+
+  if (action.type === CREATE_TAG) {
+    const { title, controller_id, group_id } = action
+    const targetCtrl = state.controllers[controller_id]
+
+    return {
+      ...state,
+      controllers: {
+        ...state.controllers,
+        [controller_id]: {
+          ...targetCtrl,
+          tags: [
+            ...targetCtrl.tags,
+            {
+              title,
+              controller_id,
+              group_id,
+            },
+          ],
+        },
+      },
     }
   }
 

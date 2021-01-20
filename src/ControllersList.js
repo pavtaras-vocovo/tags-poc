@@ -1,36 +1,34 @@
-import { useGlobalState } from './state'
+import { NewTagForm, SuggestedControllerTags, TagsList } from './TagsList'
+import { useAvailableTagTitles } from './hooks/useAvailableTagTitles'
 
-export default function ControllersList() {
-  const [{ selectedGroupId, groups, controllers }] = useGlobalState()
-  const ctrls = getGroupControllers({
-    selectedGroupId,
-    groups,
-    controllers,
-  })
-
-  console.log(groups, controllers, ctrls)
+export default function ControllersList({ controllers }) {
+  const availableTagTitles = useAvailableTagTitles(controllers)
 
   return (
-    <ul>
-      {ctrls.map((c) => {
-        return <li key={c.id}>{c.title}</li>
-      })}
-    </ul>
+    <div>
+      {controllers.map((controller) => (
+        <ControllerItem
+          key={controller.id}
+          controller={controller}
+          availableTagTitles={availableTagTitles}
+        />
+      ))}
+    </div>
   )
 }
 
-const getGroupControllersIds = (groups, groupId) => {
-  const group = groups[groupId]
-  const subgroupsControllers = group.children
-    .map((gid) => getGroupControllersIds(groups, gid))
-    .reduce((collector, item) => {
-      return [...collector, ...item]
-    }, [])
+export function ControllerItem({ controller, availableTagTitles }) {
+  const assignTagWithTitleToCtrl = (controllerId, title) => {}
 
-  return [...group.controllers, ...subgroupsControllers]
-}
-
-const getGroupControllers = ({ groups, selectedGroupId, controllers }) => {
-  const controllersIds = getGroupControllersIds(groups, selectedGroupId)
-  return controllersIds.map((cid) => controllers[cid])
+  return (
+    <div key={controller.id}>
+      <h4>{controller.title}</h4>
+      <TagsList tags={controller.tags} />
+      <SuggestedControllerTags
+        tags={controller.tags}
+        availableTagTitles={availableTagTitles}
+      />
+      <NewTagForm controllerId={controller.id} tags={controller.tags} />
+    </div>
+  )
 }
