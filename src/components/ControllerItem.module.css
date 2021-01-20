@@ -1,0 +1,21 @@
+.block {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'T T'
+    'L R';
+}
+
+.title {
+  grid-area: T;
+  margin: 0;
+}
+
+.left {
+  grid-area: L;
+}
+
+.right {
+  grid-area: R;
+}
