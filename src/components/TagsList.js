@@ -1,27 +1,20 @@
 import { useRef } from 'react'
-import { useGlobalState } from '../state'
+import { Tag } from './Tag'
+import st from './TagsList.module.css'
 
 export function TagsList({ tags, onClose }) {
   return (
-    <div>
+    <div className={st.block}>
       {tags.map((tag) => (
-        <Tag key={tag.title} onClose={() => onClose(tag)}>{tag.title}</Tag>
+        <Tag key={tag.title} onClose={() => onClose(tag)} background="crimson">
+          {tag.title}
+        </Tag>
       ))}
     </div>
   )
 }
 
-export function Tag({ children, onClick, onClose }) {
-  return (
-    <span style={{ padding: '5px', background: 'red' }}>
-      <span onClick={() => onClick && onClick()}>{children}</span>
-      {onClose && <span onClick={() => onClose()}>x</span>}
-    </span>
-  )
-}
-
 export function NewTagForm({ canCreate, onCreate }) {
-  const [{ selectedGroupId }, dispatch] = useGlobalState()
   const $input = useRef()
 
   const tagCreated = (e) => {
@@ -29,7 +22,7 @@ export function NewTagForm({ canCreate, onCreate }) {
     const tagTitle = $input.current.value
 
     if (canCreate(tagTitle)) {
-      alert('Sorry such tag already exists')
+      alert('Sorry such tag already exists on the controller')
       return
     }
 
@@ -47,17 +40,4 @@ export function NewTagForm({ canCreate, onCreate }) {
   )
 }
 
-export function SuggestedControllerTags({ onSelect, tags, availableTagTitles }) {
-  const assignedTitles = tags.map((t) => t.title)
 
-  return (
-    <div>
-      <h5>Suggested tags:</h5>
-      {availableTagTitles
-        .filter((title) => !assignedTitles.find((t) => t === title))
-        .map((title) => (
-          <Tag key={title} onClick={() => onSelect(title)}>{title}</Tag>
-        ))}
-    </div>
-  )
-}

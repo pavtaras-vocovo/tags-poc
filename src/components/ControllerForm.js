@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { createController } from '../state/actions'
 import { randomId } from '../utils'
 import { useGlobalState } from '../state'
+import st from './ControllerForm.module.css'
 
 export default function ControllerForm() {
   const [{ selectedGroupId }, dispatch] = useGlobalState()
@@ -16,7 +17,7 @@ export default function ControllerForm() {
   }
 
   return (
-    <form onSubmit={addController}>
+    <form className={st.block} onSubmit={addController}>
       <input
         type="text"
         ref={$input}

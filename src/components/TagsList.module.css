@@ -1,0 +1,7 @@
+.block {
+  display: flex;
+}
+
+.block > * {
+  margin-right: 3px;
+}

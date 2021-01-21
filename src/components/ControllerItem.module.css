@@ -5,6 +5,11 @@
   grid-template-areas:
     'T T'
     'L R';
+
+  padding: 10px;
+  background: darkseagreen;
+  margin: 5px 3px;
+  border-radius: 5px;
 }
 
 .title {
@@ -18,4 +23,8 @@
 
 .right {
   grid-area: R;
+}
+
+.tagsHeading {
+  margin: 10px 0;
 }
