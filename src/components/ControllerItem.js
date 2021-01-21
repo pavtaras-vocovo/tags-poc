@@ -1,12 +1,13 @@
 import { useGlobalState } from '../state'
 import { createTag, removeTagFromController } from '../state/actions'
 import { NewTagForm, TagsList } from './TagsList'
-
-import st from './ControllerItem.module.css'
 import { SuggestedControllerTags } from './SuggestedControllerTags'
 
+import st from './ControllerItem.module.css'
+
 export function ControllerItem({ controller, availableTagTitles }) {
-  const [{ selectedGroupId }, dispatch] = useGlobalState()
+  const [{ selectedGroupId, groups }, dispatch] = useGlobalState()
+  const ownerGroup = groups[controller.group_id]
 
   const assignTagWithTitleToCtrl = (tagTitle) => {
     dispatch(createTag(tagTitle, controller.id, selectedGroupId))
@@ -22,7 +23,10 @@ export function ControllerItem({ controller, availableTagTitles }) {
 
   return (
     <div className={st.block} key={controller.id}>
-      <h4 className={st.title}>{controller.title}</h4>
+      <h4 className={st.title}>
+        {controller.title}
+        {' - '} <i>{ownerGroup.title}</i>
+      </h4>
       <div className={st.left}>
         <h5 className={st.tagsHeading}>Assigned tags:</h5>
         <TagsList tags={controller.tags} onClose={removeTag} />
