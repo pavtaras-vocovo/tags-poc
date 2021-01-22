@@ -6,21 +6,8 @@ export const initState = {
       children: [],
       title: 'Top group',
       parent_id: null, // for non-top group it is id of the parent group
-      controllers: ['controller_id'],
+      controllers: [],
     },
   },
-  controllers: {
-    controller_id: {
-      id: 'controller_id',
-      title: 'Controller 1',
-      group_id: 'group_id',
-      tags: [
-        {
-          title: 'tag1',
-          controller_id: 'controller_id',
-          group_id: 'group_id',
-        },
-      ],
-    },
-  },
+  controllers: {},
 }
